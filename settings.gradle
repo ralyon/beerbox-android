@@ -14,6 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Beer Box"
 include ':app'
-include ':feature'
 include ':data'
 include ':domain'
