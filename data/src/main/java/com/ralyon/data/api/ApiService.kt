@@ -8,9 +8,7 @@ interface ApiService {
 
     @GET("beers")
     suspend fun getBeers(
-        @Query("page") page: Int?,
-        @Query("brewed_after") brewedAfter: String?,
-        @Query("brewed_before") brewedBefore: String?,
+        @Query("page") page: Int?
     ): List<Beer>
 
 }
