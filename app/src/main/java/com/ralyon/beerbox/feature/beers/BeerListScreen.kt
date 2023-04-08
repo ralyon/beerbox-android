@@ -1,8 +1,6 @@
 package com.ralyon.beerbox.feature.beers
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
@@ -34,8 +32,10 @@ fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        Title()
-        BeerList(uiState.beers)
+        Column {
+            Title()
+            BeerList(uiState.beers)
+        }
     }
 }
 
@@ -46,13 +46,15 @@ fun Title() {
         color = Color.White,
         fontSize = 24.sp,
         textAlign = TextAlign.Center,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
     )
 }
 
 @Composable
 fun BeerList(beers: List<Beer>) {
-    LazyColumn {
+    LazyColumn(contentPadding = PaddingValues(8.dp)) {
         items(beers) { beer ->
             BeerListItem(beer)
         }
@@ -62,9 +64,10 @@ fun BeerList(beers: List<Beer>) {
 @Composable
 fun BeerListItem(beer: Beer) {
     Card(
-        backgroundColor = Color.White, modifier = Modifier
+        backgroundColor = Color.White,
+        modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(vertical = 4.dp)
     ) {
         Text(text = beer.name)
     }
