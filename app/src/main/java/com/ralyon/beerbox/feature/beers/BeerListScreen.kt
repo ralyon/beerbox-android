@@ -8,15 +8,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.ralyon.beerbox.composable.AppTitle
 import com.ralyon.data.model.Beer
 
 @Composable
@@ -30,30 +31,22 @@ fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
         color = MaterialTheme.colors.background
     ) {
         Column {
-            Title()
+            AppTitle()
             BeerList(beers)
         }
     }
 }
 
 @Composable
-fun Title() {
-    Text(
-        text = "Beer Box",
-        color = Color.White,
-        fontSize = 24.sp,
-        textAlign = TextAlign.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    )
-}
-
-@Composable
 fun BeerList(beers: LazyPagingItems<Beer>) {
-    LazyColumn(contentPadding = PaddingValues(8.dp)) {
+    LazyColumn(contentPadding = PaddingValues(vertical = 8.dp)) {
         items(items = beers, key = { it.id }) { beer ->
             beer?.let { BeerListItem(it) }
+            Divider(
+                color = Color.White,
+                startIndent = 24.dp,
+                modifier = Modifier.alpha(0.1f)
+            )
         }
 
         when (val state = beers.loadState.refresh) { // First load
@@ -96,16 +89,4 @@ fun BeerListErrorItem(message: String?) {
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center
     )
-}
-
-@Composable
-fun BeerListItem(beer: Beer) {
-    Card(
-        backgroundColor = Color.White,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp)
-    ) {
-        Text(text = beer.name)
-    }
 }

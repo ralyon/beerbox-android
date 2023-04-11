@@ -62,6 +62,7 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     implementation "androidx.compose.material:material:$compose_ui_version"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
@@ -76,6 +77,10 @@ dependencies {
     // Paging
     implementation "androidx.paging:paging-runtime:$paging_version"
     implementation "androidx.paging:paging-compose:1.0.0-alpha18"
+
+    // Coil
+    implementation "io.coil-kt:coil:$coil_version"
+    implementation "io.coil-kt:coil-compose:$coil_version"
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
