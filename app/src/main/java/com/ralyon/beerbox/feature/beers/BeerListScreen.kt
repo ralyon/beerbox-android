@@ -17,6 +17,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.ralyon.beerbox.composable.AppTitle
+import com.ralyon.beerbox.composable.SearchBar
 import com.ralyon.data.model.Beer
 import kotlinx.coroutines.launch
 
@@ -24,8 +25,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
 
-    val beers = viewModel.getBeers().collectAsLazyPagingItems()
     var selectedBeer by remember { mutableStateOf(Beer()) }
+    var searchedName by remember { mutableStateOf("") }
+    val beers = viewModel.getBeers(searchedName).collectAsLazyPagingItems()
 
     val skipHalfExpanded by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(
@@ -40,6 +42,7 @@ fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
     ) {
         Column {
             AppTitle()
+            SearchBar { searchedName = it }
             ModalBottomSheetLayout(
                 sheetState = sheetState,
                 sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),

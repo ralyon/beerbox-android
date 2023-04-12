@@ -9,7 +9,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.ralyon.beerbox.feature.beers.BeerListScreen
 import com.ralyon.beerbox.ui.theme.BeerBoxTheme
-import com.ralyon.beerbox.ui.theme.DarkBackground
+import com.ralyon.beerbox.ui.theme.DarkBackgroundColor
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
             val useDarkIcons = isSystemInDarkTheme()
             DisposableEffect(systemUiController, useDarkIcons) {
                 systemUiController.setSystemBarsColor(
-                    color = DarkBackground,
+                    color = DarkBackgroundColor,
                     darkIcons = useDarkIcons
                 )
                 onDispose {}
