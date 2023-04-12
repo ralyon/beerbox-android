@@ -15,13 +15,6 @@ class BeerListViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(BeerListUiState())
-    val uiState = _uiState.asStateFlow()
-
     fun getBeers(): Flow<PagingData<Beer>> = repository.getBeers().cachedIn(viewModelScope)
 
 }
-
-data class BeerListUiState(
-    val beers: List<Beer> = emptyList()
-)
