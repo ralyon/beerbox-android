@@ -9,9 +9,9 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,6 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
+import com.ralyon.beerbox.R
+import com.ralyon.beerbox.ui.theme.PrimaryTextColor
+import com.ralyon.beerbox.ui.theme.SecondaryTextColor
 import com.ralyon.data.model.Beer
 
 @Composable
@@ -41,7 +44,7 @@ fun BeerListItem(beer: Beer, onMoreInfoClicked: (Beer) -> Unit) {
         )
         Text(
             text = beer.name,
-            color = Color.White,
+            color = PrimaryTextColor,
             modifier = Modifier.constrainAs(name) {
                 top.linkTo(parent.top)
                 start.linkTo(image.end)
@@ -51,9 +54,8 @@ fun BeerListItem(beer: Beer, onMoreInfoClicked: (Beer) -> Unit) {
         )
         Text(
             text = beer.tagline,
-            color = Color.White,
+            color = SecondaryTextColor,
             modifier = Modifier
-                .alpha(0.5f)
                 .constrainAs(tagline) {
                     top.linkTo(name.bottom)
                     start.linkTo(image.end)
@@ -63,20 +65,20 @@ fun BeerListItem(beer: Beer, onMoreInfoClicked: (Beer) -> Unit) {
         )
         Text(
             text = beer.description,
-            color = Color.White,
+            color = SecondaryTextColor,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
-                .alpha(0.5f)
                 .constrainAs(desc) {
                     start.linkTo(image.end)
-                    bottom.linkTo(button.top)
                     end.linkTo(parent.end)
+                    top.linkTo(tagline.bottom)
+                    bottom.linkTo(button.top)
                     width = Dimension.fillToConstraints
                 }
         )
         Text(
-            text = "MORE INFO",
+            text = stringResource(R.string.beer_list_item_more_info_button).uppercase(),
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colors.primary,
             modifier = Modifier

@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.ralyon.data.api.ApiService
+import com.ralyon.data.model.AdInfo
 import com.ralyon.data.model.Beer
 import com.ralyon.data.source.BeersPagingSource
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +19,14 @@ class DefaultRepository @Inject constructor(
             config = PagingConfig(BEERS_PAGE_SIZE),
             pagingSourceFactory = { BeersPagingSource(api) }
         ).flow
+    }
+
+    override suspend fun getAdInfo(): AdInfo {
+        // an api call could be done here
+        return AdInfo(
+            title = "Weekend Offers",
+            description = "Free shipping on orders over 60€"
+        )
     }
 
     companion object {

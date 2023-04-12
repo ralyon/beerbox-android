@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -16,6 +17,8 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.ralyon.beerbox.R
+import com.ralyon.beerbox.composable.AdsCard
 import com.ralyon.beerbox.composable.AppTitle
 import com.ralyon.beerbox.composable.SearchBar
 import com.ralyon.data.model.Beer
@@ -27,6 +30,7 @@ fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
 
     var selectedBeer by remember { mutableStateOf(Beer()) }
     var searchedName by remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsState()
     val beers = viewModel.getBeers(searchedName).collectAsLazyPagingItems()
 
     val skipHalfExpanded by remember { mutableStateOf(false) }
@@ -43,6 +47,7 @@ fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
         Column {
             AppTitle()
             SearchBar { searchedName = it }
+            uiState.adInfo?.let { AdsCard(it.title, it.description) }
             ModalBottomSheetLayout(
                 sheetState = sheetState,
                 sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
@@ -62,7 +67,7 @@ fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
 
 @Composable
 fun BeerList(beers: LazyPagingItems<Beer>, onBeerSelected: (Beer) -> Unit) {
-    LazyColumn(contentPadding = PaddingValues(vertical = 8.dp)) {
+    LazyColumn {
         items(items = beers, key = { it.id }) { beer ->
             beer?.let {
                 BeerListItem(
@@ -113,7 +118,7 @@ fun BeerListLoadingItem() {
 @Composable
 fun BeerListErrorItem(message: String?) {
     Text(
-        text = message ?: "An error occurred loading the beers",
+        text = message ?: stringResource(R.string.beer_list_generic_loading_error),
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center
     )

@@ -7,7 +7,6 @@ import androidx.compose.material.Text
 import com.ralyon.beerbox.R
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -16,6 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
+import com.ralyon.beerbox.ui.theme.PrimaryTextColor
+import com.ralyon.beerbox.ui.theme.SecondaryTextColor
 import com.ralyon.data.model.Beer
 
 @Composable
@@ -43,7 +44,7 @@ fun BeerBottomSheet(beer: Beer) {
         )
         Text(
             text = beer.name,
-            color = Color.White,
+            color = PrimaryTextColor,
             modifier = Modifier
                 .constrainAs(name) {
                     top.linkTo(parent.top)
@@ -55,9 +56,8 @@ fun BeerBottomSheet(beer: Beer) {
         )
         Text(
             text = beer.tagline,
-            color = Color.White,
+            color = SecondaryTextColor,
             modifier = Modifier
-                .alpha(0.5f)
                 .constrainAs(tagline) {
                     top.linkTo(name.bottom)
                     start.linkTo(image.end)
@@ -68,9 +68,8 @@ fun BeerBottomSheet(beer: Beer) {
         )
         Text(
             text = beer.description,
-            color = Color.White,
+            color = SecondaryTextColor,
             modifier = Modifier
-                .alpha(0.5f)
                 .constrainAs(desc) {
                     top.linkTo(tagline.bottom)
                     start.linkTo(image.end)
