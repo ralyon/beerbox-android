@@ -7,6 +7,8 @@ import androidx.paging.cachedIn
 import com.ralyon.data.model.AdInfo
 import com.ralyon.data.model.Beer
 import com.ralyon.data.repository.Repository
+import com.ralyon.domain.usecase.GetAdInfoUseCase
+import com.ralyon.domain.usecase.GetBeersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -14,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BeerListViewModel @Inject constructor(
-    private val repository: Repository
+    private val getBeersUseCase: GetBeersUseCase,
+    private val getAdInfoUseCase: GetAdInfoUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(BeerListUiState())
@@ -37,12 +40,12 @@ class BeerListViewModel @Inject constructor(
     fun getBeers(
         beerName: String? = null,
         malt: String? = null
-    ): Flow<PagingData<Beer>> = repository.getBeers(beerName, malt).cachedIn(viewModelScope)
+    ): Flow<PagingData<Beer>> = getBeersUseCase(beerName, malt).cachedIn(viewModelScope)
 
     private fun getAdInfo() {
         viewModelScope.launch {
             val info = try {
-                repository.getAdInfo()
+                getAdInfoUseCase()
             } catch (e: Exception) {
                 null
             }

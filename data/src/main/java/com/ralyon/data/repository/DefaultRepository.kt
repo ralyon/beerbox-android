@@ -15,16 +15,15 @@ class DefaultRepository @Inject constructor(
 ) : Repository {
 
     override fun getBeers(beerName: String?, malt: String?): Flow<PagingData<Beer>> {
-        val pagingSource = BeersPagingSource(
-            api = api,
-            beerName = beerName
-                ?.replace(' ', '_')
-                ?.takeIf { it.isNotBlank() },
-            malt = malt
-        )
         return Pager(
             config = PagingConfig(BEERS_PAGE_SIZE),
-            pagingSourceFactory = { pagingSource }
+            pagingSourceFactory = {
+                BeersPagingSource(
+                    api = api,
+                    beerName = beerName,
+                    malt = malt
+                )
+            }
         ).flow
     }
 

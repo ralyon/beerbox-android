@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'com.ralyon.data'
+    namespace 'com.ralyon.domain'
     compileSdk 33
 
     defaultConfig {
@@ -15,8 +15,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-
-        buildConfigField("String", "BASE_URL", "\"https://api.punkapi.com/v2/\"")
     }
 
     buildTypes {
@@ -35,10 +33,7 @@ android {
 }
 
 dependencies {
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
+    implementation project(path: ':data')
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
@@ -47,10 +42,9 @@ dependencies {
     // Paging
     implementation "androidx.paging:paging-runtime:$paging_version"
 
-    // Test
-    testImplementation "junit:junit:4.13.2"
-    androidTestImplementation "androidx.test.ext:junit:1.1.5"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
 // Allow references to generated code
