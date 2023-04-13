@@ -7,7 +7,8 @@ import com.ralyon.data.model.Beer
 import javax.inject.Inject
 
 class BeersPagingSource @Inject constructor(
-    private val api: ApiService
+    private val api: ApiService,
+    private val search: String?
 ) : PagingSource<Int, Beer>() {
 
     override fun getRefreshKey(state: PagingState<Int, Beer>): Int? {
@@ -20,7 +21,10 @@ class BeersPagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Beer> {
         return try {
             val page = params.key ?: 1
-            val response = api.getBeers(page = page)
+            val response = api.getBeers(
+                page = page,
+                beerName = search
+            )
 
             LoadResult.Page(
                 data = response,

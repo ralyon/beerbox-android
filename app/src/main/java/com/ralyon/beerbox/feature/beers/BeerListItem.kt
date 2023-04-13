@@ -9,7 +9,6 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,11 +24,9 @@ import com.ralyon.beerbox.ui.theme.SecondaryTextColor
 import com.ralyon.data.model.Beer
 
 @Composable
-fun BeerListItem(beer: Beer, onMoreInfoClicked: (Beer) -> Unit) {
+fun BeerListItem(beer: Beer, onMoreInfoClicked: (Beer) -> Unit, modifier: Modifier = Modifier) {
     ConstraintLayout(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 24.dp, bottom = 24.dp, start = 8.dp, end = 32.dp)
+        modifier = modifier
     ) {
         val (image, name, tagline, desc, button) = createRefs()
 

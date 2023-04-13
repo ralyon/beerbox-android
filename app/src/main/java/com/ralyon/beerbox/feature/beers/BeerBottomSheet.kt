@@ -7,7 +7,6 @@ import androidx.compose.material.Text
 import com.ralyon.beerbox.R
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
+import com.ralyon.beerbox.ui.theme.BeerBoxTheme
 import com.ralyon.beerbox.ui.theme.PrimaryTextColor
 import com.ralyon.beerbox.ui.theme.SecondaryTextColor
 import com.ralyon.data.model.Beer
@@ -79,7 +79,7 @@ fun BeerBottomSheet(beer: Beer) {
                 .padding(top = 8.dp, start = 16.dp, end = 24.dp, bottom = 24.dp)
         )
         Icon(
-            painter = painterResource(id = R.drawable.ic_bookmark_32),
+            painter = painterResource(R.drawable.ic_bookmark_32),
             contentDescription = "Bookmark Icon",
             tint = MaterialTheme.colors.primary,
             modifier = Modifier
@@ -95,11 +95,13 @@ fun BeerBottomSheet(beer: Beer) {
 @Preview(showBackground = true, backgroundColor = 0xFF0B181D)
 @Composable
 private fun BeerBottomSheetPreview() {
-    BeerBottomSheet(
-        beer = Beer(
-            name = "Skull Candy",
-            tagline = "Pacific Hopped Amber Bitter.",
-            description = "The first beer that we brewed on our newly commissioned 5000 litre brewhouse in Fraserburgh 2009. A beer with the malt and body of an English bitter, but the heart and soul of vibrant citrus US hops."
+    BeerBoxTheme {
+        BeerBottomSheet(
+            beer = Beer(
+                name = "Skull Candy",
+                tagline = "Pacific Hopped Amber Bitter.",
+                description = "The first beer that we brewed on our newly commissioned 5000 litre brewhouse in Fraserburgh 2009. A beer with the malt and body of an English bitter, but the heart and soul of vibrant citrus US hops."
+            )
         )
-    )
+    }
 }

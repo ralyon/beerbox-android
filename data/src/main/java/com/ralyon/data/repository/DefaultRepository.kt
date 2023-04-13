@@ -14,10 +14,16 @@ class DefaultRepository @Inject constructor(
     private val api: ApiService
 ) : Repository {
 
-    override fun getBeers(): Flow<PagingData<Beer>> {
+    override fun getBeers(search: String?): Flow<PagingData<Beer>> {
+        val pagingSource = BeersPagingSource(
+            api = api,
+            search = search
+                ?.replace(' ', '_')
+                ?.takeIf { it.isNotBlank() }
+        )
         return Pager(
             config = PagingConfig(BEERS_PAGE_SIZE),
-            pagingSourceFactory = { BeersPagingSource(api) }
+            pagingSourceFactory = { pagingSource }
         ).flow
     }
 

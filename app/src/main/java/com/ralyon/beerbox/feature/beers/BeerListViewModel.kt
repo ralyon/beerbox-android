@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.filter
 import com.ralyon.data.model.AdInfo
 import com.ralyon.data.model.Beer
 import com.ralyon.data.repository.Repository
@@ -25,11 +24,9 @@ class BeerListViewModel @Inject constructor(
         getAdInfo()
     }
 
-    fun getBeers(search: String = ""): Flow<PagingData<Beer>> = repository.getBeers()
-        .map { beers ->
-            beers.filter { it.name.startsWith(search, true) }
-        }
-        .cachedIn(viewModelScope)
+    fun getBeers(
+        search: String? = null
+    ): Flow<PagingData<Beer>> = repository.getBeers(search).cachedIn(viewModelScope)
 
     private fun getAdInfo() {
         viewModelScope.launch {

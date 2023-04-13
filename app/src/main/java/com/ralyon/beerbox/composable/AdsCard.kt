@@ -13,13 +13,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ralyon.beerbox.R
+import com.ralyon.beerbox.ui.theme.BeerBoxTheme
 
 @Composable
-fun AdsCard(title: String, description: String) {
+fun AdsCard(
+    title: String,
+    description: String,
+    modifier: Modifier = Modifier
+) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+        modifier = modifier,
         backgroundColor = MaterialTheme.colors.primary,
         shape = RoundedCornerShape(16.dp)
     ) {
@@ -49,5 +52,7 @@ fun AdsCard(title: String, description: String) {
 @Preview
 @Composable
 private fun AdsCardPreview() {
-    AdsCard(title = "Weekend Offers", description = "Free shipping on orders over 60€")
+    BeerBoxTheme {
+        AdsCard(title = "Weekend Offers", description = "Free shipping on orders over 60€")
+    }
 }

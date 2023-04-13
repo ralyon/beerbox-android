@@ -1,7 +1,5 @@
 package com.ralyon.beerbox.composable
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -13,11 +11,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ralyon.beerbox.R
+import com.ralyon.beerbox.ui.theme.BeerBoxTheme
 import com.ralyon.beerbox.ui.theme.PrimaryTextColor
 import com.ralyon.beerbox.ui.theme.SecondaryTextColor
 
 @Composable
-fun SearchBar(onValueChange: (String) -> Unit) {
+fun SearchBar(onValueChange: (String) -> Unit, modifier: Modifier = Modifier) {
     var text by remember { mutableStateOf("") }
 
     TextField(
@@ -35,14 +34,14 @@ fun SearchBar(onValueChange: (String) -> Unit) {
             backgroundColor = Color(0xFF1A262D)
         ),
         shape = RoundedCornerShape(8.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+        modifier = modifier
     )
 }
 
 @Preview
 @Composable
 private fun SearchBarPreview() {
-    SearchBar(onValueChange = {})
+    BeerBoxTheme {
+        SearchBar(onValueChange = {})
+    }
 }

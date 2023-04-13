@@ -21,6 +21,7 @@ import com.ralyon.beerbox.R
 import com.ralyon.beerbox.composable.AdsCard
 import com.ralyon.beerbox.composable.AppTitle
 import com.ralyon.beerbox.composable.SearchBar
+import com.ralyon.beerbox.ui.theme.PrimaryTextColor
 import com.ralyon.data.model.Beer
 import kotlinx.coroutines.launch
 
@@ -29,7 +30,7 @@ import kotlinx.coroutines.launch
 fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
 
     var selectedBeer by remember { mutableStateOf(Beer()) }
-    var searchedName by remember { mutableStateOf("") }
+    var searchedName by remember { mutableStateOf<String?>(null) }
     val uiState by viewModel.uiState.collectAsState()
     val beers = viewModel.getBeers(searchedName).collectAsLazyPagingItems()
 
@@ -46,8 +47,21 @@ fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
     ) {
         Column {
             AppTitle()
-            SearchBar { searchedName = it }
-            uiState.adInfo?.let { AdsCard(it.title, it.description) }
+            SearchBar(
+                onValueChange = { searchedName = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+            )
+            uiState.adInfo?.let {
+                AdsCard(
+                    title = it.title,
+                    description = it.description,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                )
+            }
             ModalBottomSheetLayout(
                 sheetState = sheetState,
                 sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
@@ -72,7 +86,10 @@ fun BeerList(beers: LazyPagingItems<Beer>, onBeerSelected: (Beer) -> Unit) {
             beer?.let {
                 BeerListItem(
                     beer = it,
-                    onMoreInfoClicked = { selectedBeer -> onBeerSelected.invoke(selectedBeer) }
+                    onMoreInfoClicked = { selectedBeer -> onBeerSelected.invoke(selectedBeer) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 24.dp, bottom = 24.dp, start = 8.dp, end = 32.dp)
                 )
             }
             Divider(
@@ -119,6 +136,7 @@ fun BeerListLoadingItem() {
 fun BeerListErrorItem(message: String?) {
     Text(
         text = message ?: stringResource(R.string.beer_list_generic_loading_error),
+        color = PrimaryTextColor,
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center
     )
