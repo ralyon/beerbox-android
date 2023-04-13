@@ -6,7 +6,6 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.ralyon.data.model.AdInfo
 import com.ralyon.data.model.Beer
-import com.ralyon.data.repository.Repository
 import com.ralyon.domain.usecase.GetAdInfoUseCase
 import com.ralyon.domain.usecase.GetBeersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
