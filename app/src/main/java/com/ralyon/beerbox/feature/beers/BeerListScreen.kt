@@ -23,7 +23,7 @@ import com.ralyon.beerbox.composable.AdsCard
 import com.ralyon.beerbox.composable.AppTitle
 import com.ralyon.beerbox.composable.FiltersGroup
 import com.ralyon.beerbox.composable.SearchBar
-import com.ralyon.beerbox.ui.theme.PrimaryTextColor
+import com.ralyon.beerbox.theme.PrimaryTextColor
 import com.ralyon.data.model.Beer
 import kotlinx.coroutines.launch
 

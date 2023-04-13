@@ -1,4 +1,4 @@
-package com.ralyon.beerbox.ui.theme
+package com.ralyon.beerbox.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

@@ -1,4 +1,4 @@
-package com.ralyon.beerbox.ui.theme
+package com.ralyon.beerbox.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

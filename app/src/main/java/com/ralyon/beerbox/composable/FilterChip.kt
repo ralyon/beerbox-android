@@ -9,9 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ralyon.beerbox.ui.theme.BackgroundColor
-import com.ralyon.beerbox.ui.theme.BeerBoxTheme
-import com.ralyon.beerbox.ui.theme.SecondaryTextColor
+import com.ralyon.beerbox.theme.BackgroundColor
+import com.ralyon.beerbox.theme.BeerBoxTheme
+import com.ralyon.beerbox.theme.SecondaryTextColor
 
 @Composable
 fun FilterChip(

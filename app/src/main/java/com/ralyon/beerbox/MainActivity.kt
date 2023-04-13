@@ -8,8 +8,8 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.ralyon.beerbox.feature.beers.BeerListScreen
-import com.ralyon.beerbox.ui.theme.BeerBoxTheme
-import com.ralyon.beerbox.ui.theme.DarkBackgroundColor
+import com.ralyon.beerbox.theme.BeerBoxTheme
+import com.ralyon.beerbox.theme.DarkBackgroundColor
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

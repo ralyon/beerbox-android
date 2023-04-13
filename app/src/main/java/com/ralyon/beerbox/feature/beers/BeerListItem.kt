@@ -19,8 +19,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
 import com.ralyon.beerbox.R
-import com.ralyon.beerbox.ui.theme.PrimaryTextColor
-import com.ralyon.beerbox.ui.theme.SecondaryTextColor
+import com.ralyon.beerbox.theme.PrimaryTextColor
+import com.ralyon.beerbox.theme.SecondaryTextColor
 import com.ralyon.data.model.Beer
 
 @Composable

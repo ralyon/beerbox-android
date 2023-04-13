@@ -8,9 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.ralyon.beerbox.R
-import com.ralyon.beerbox.ui.theme.BeerBoxTheme
-import com.ralyon.beerbox.ui.theme.PrimaryTextColor
-import com.ralyon.beerbox.ui.theme.SecondaryTextColor
+import com.ralyon.beerbox.theme.BeerBoxTheme
+import com.ralyon.beerbox.theme.PrimaryTextColor
+import com.ralyon.beerbox.theme.SecondaryTextColor
 
 @Composable
 fun SearchBar(onValueChange: (String) -> Unit, modifier: Modifier = Modifier) {
