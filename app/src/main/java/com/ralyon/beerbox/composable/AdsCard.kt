@@ -24,7 +24,7 @@ fun AdsCard(
     Card(
         modifier = modifier,
         backgroundColor = MaterialTheme.colors.primary,
-        shape = RoundedCornerShape(16.dp)
+        shape = MaterialTheme.shapes.large
     ) {
         Row(
             modifier = Modifier.padding(16.dp),

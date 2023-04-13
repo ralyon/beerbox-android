@@ -24,9 +24,24 @@ class BeerListViewModel @Inject constructor(
         getAdInfo()
     }
 
+    fun setSearchedName(name: String) {
+        _uiState.update { it.copy(searchedName = name) }
+    }
+
+    fun setSelectedBeer(beer: Beer) {
+        _uiState.update { it.copy(selectedBeer = beer) }
+    }
+
+    fun setSelectedMalt(name: String?) {
+        _uiState.update {
+            it.copy(selectedMalt = name)
+        }
+    }
+
     fun getBeers(
-        search: String? = null
-    ): Flow<PagingData<Beer>> = repository.getBeers(search).cachedIn(viewModelScope)
+        beerName: String? = null,
+        malt: String? = null
+    ): Flow<PagingData<Beer>> = repository.getBeers(beerName, malt).cachedIn(viewModelScope)
 
     private fun getAdInfo() {
         viewModelScope.launch {
@@ -42,5 +57,8 @@ class BeerListViewModel @Inject constructor(
 }
 
 data class BeerListUiState(
-    val adInfo: AdInfo? = null
+    val selectedBeer: Beer = Beer(),
+    val adInfo: AdInfo? = null,
+    val searchedName: String? = null,
+    val selectedMalt: String? = null
 )

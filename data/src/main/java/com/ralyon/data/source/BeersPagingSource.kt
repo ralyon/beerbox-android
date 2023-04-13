@@ -8,7 +8,8 @@ import javax.inject.Inject
 
 class BeersPagingSource @Inject constructor(
     private val api: ApiService,
-    private val search: String?
+    private val beerName: String?,
+    private val malt: String?
 ) : PagingSource<Int, Beer>() {
 
     override fun getRefreshKey(state: PagingState<Int, Beer>): Int? {
@@ -23,7 +24,8 @@ class BeersPagingSource @Inject constructor(
             val page = params.key ?: 1
             val response = api.getBeers(
                 page = page,
-                beerName = search
+                beerName = beerName,
+                malt = malt
             )
 
             LoadResult.Page(

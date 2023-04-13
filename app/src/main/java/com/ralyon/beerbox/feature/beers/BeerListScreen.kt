@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -20,6 +21,7 @@ import androidx.paging.compose.items
 import com.ralyon.beerbox.R
 import com.ralyon.beerbox.composable.AdsCard
 import com.ralyon.beerbox.composable.AppTitle
+import com.ralyon.beerbox.composable.FiltersGroup
 import com.ralyon.beerbox.composable.SearchBar
 import com.ralyon.beerbox.ui.theme.PrimaryTextColor
 import com.ralyon.data.model.Beer
@@ -29,10 +31,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
 
-    var selectedBeer by remember { mutableStateOf(Beer()) }
-    var searchedName by remember { mutableStateOf<String?>(null) }
     val uiState by viewModel.uiState.collectAsState()
-    val beers = viewModel.getBeers(searchedName).collectAsLazyPagingItems()
+    val beers = viewModel.getBeers(
+        beerName = uiState.searchedName,
+        malt = uiState.selectedMalt
+    ).collectAsLazyPagingItems()
 
     val skipHalfExpanded by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(
@@ -48,7 +51,7 @@ fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
         Column {
             AppTitle()
             SearchBar(
-                onValueChange = { searchedName = it },
+                onValueChange = { viewModel.setSearchedName(it) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
@@ -62,15 +65,23 @@ fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
                         .padding(16.dp)
                 )
             }
+            FiltersGroup(
+                filters = stringArrayResource(R.array.beer_list_malt_names).toList(),
+                selectedFilter = uiState.selectedMalt,
+                onSelectedChanged = { name ->
+                    viewModel.setSelectedMalt(name)
+                },
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            )
             ModalBottomSheetLayout(
                 sheetState = sheetState,
                 sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                 sheetBackgroundColor = MaterialTheme.colors.background,
-                sheetContent = { BeerBottomSheet(selectedBeer) }) {
+                sheetContent = { BeerBottomSheet(uiState.selectedBeer) }) {
                 BeerList(
                     beers = beers,
                     onBeerSelected = {
-                        selectedBeer = it
+                        viewModel.setSelectedBeer(it)
                         scope.launch { sheetState.show() }
                     }
                 )

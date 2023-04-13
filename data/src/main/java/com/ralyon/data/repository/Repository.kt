@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
-    fun getBeers(search: String?): Flow<PagingData<Beer>>
+    fun getBeers(beerName: String?, malt: String?): Flow<PagingData<Beer>>
 
     suspend fun getAdInfo(): AdInfo
 }
