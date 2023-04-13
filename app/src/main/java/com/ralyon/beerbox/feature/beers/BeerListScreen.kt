@@ -32,6 +32,7 @@ import kotlinx.coroutines.launch
 fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
 
     val uiState by viewModel.uiState.collectAsState()
+    var selectedBeer by remember { mutableStateOf(Beer()) }
     val beers = viewModel.getBeers(
         beerName = uiState.searchedName,
         malt = uiState.selectedMalt
@@ -77,11 +78,11 @@ fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
                 sheetState = sheetState,
                 sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                 sheetBackgroundColor = MaterialTheme.colors.background,
-                sheetContent = { BeerBottomSheet(uiState.selectedBeer) }) {
+                sheetContent = { BeerBottomSheet(selectedBeer) }) {
                 BeerList(
                     beers = beers,
                     onBeerSelected = {
-                        viewModel.setSelectedBeer(it)
+                        selectedBeer = it
                         scope.launch { sheetState.show() }
                     }
                 )
@@ -91,7 +92,7 @@ fun BeerListScreen(viewModel: BeerListViewModel = viewModel()) {
 }
 
 @Composable
-fun BeerList(beers: LazyPagingItems<Beer>, onBeerSelected: (Beer) -> Unit) {
+private fun BeerList(beers: LazyPagingItems<Beer>, onBeerSelected: (Beer) -> Unit) {
     LazyColumn {
         items(items = beers, key = { it.id }) { beer ->
             beer?.let {
@@ -133,9 +134,11 @@ fun BeerList(beers: LazyPagingItems<Beer>, onBeerSelected: (Beer) -> Unit) {
 }
 
 @Composable
-fun BeerListLoadingItem() {
+private fun BeerListLoadingItem() {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -144,7 +147,7 @@ fun BeerListLoadingItem() {
 }
 
 @Composable
-fun BeerListErrorItem(message: String?) {
+private fun BeerListErrorItem(message: String?) {
     Text(
         text = message ?: stringResource(R.string.beer_list_generic_loading_error),
         color = PrimaryTextColor,

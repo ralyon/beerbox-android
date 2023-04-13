@@ -28,10 +28,6 @@ class BeerListViewModel @Inject constructor(
         _uiState.update { it.copy(searchedName = name) }
     }
 
-    fun setSelectedBeer(beer: Beer) {
-        _uiState.update { it.copy(selectedBeer = beer) }
-    }
-
     fun setSelectedMalt(name: String?) {
         _uiState.update {
             it.copy(selectedMalt = name)
@@ -57,7 +53,6 @@ class BeerListViewModel @Inject constructor(
 }
 
 data class BeerListUiState(
-    val selectedBeer: Beer = Beer(),
     val adInfo: AdInfo? = null,
     val searchedName: String? = null,
     val selectedMalt: String? = null
