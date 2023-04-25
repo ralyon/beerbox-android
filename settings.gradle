@@ -16,3 +16,6 @@ rootProject.name = "Beer Box"
 include ':app'
 include ':data'
 include ':domain'
+include ':composable'
+include ':theme'
+include ':feature_beers'

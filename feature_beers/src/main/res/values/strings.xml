@@ -1,0 +1,11 @@
+<resources>
+    <string name="beer_list_generic_loading_error">An error occurred loading the beers</string>
+    <string name="beer_list_item_more_info_button">More info</string>
+    <string-array name="beer_list_malt_names">
+        <item>Lager</item>
+        <item>Pils</item>
+        <item>Pale</item>
+        <item>Amber</item>
+        <item>IPA</item>
+    </string-array>
+</resources>

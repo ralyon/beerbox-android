@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_title_label">Beer Box</string>
+    <string name="search_bar_placeholder">Search</string>
+</resources>
